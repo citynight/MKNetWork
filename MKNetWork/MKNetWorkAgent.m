@@ -53,8 +53,45 @@
           @"%@\n\n==================================",
           [baseRequest requestUrl]);
     
+    
+    MKRequestMethod method = [baseRequest requestMethod];
     NSString *url = [self buildRequestUrl:baseRequest];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[baseRequest requestUrl]]];
+    id param = baseRequest.requestArgument;
+    
+    AFHTTPRequestSerializer *requestSerializer = nil;
+    if (baseRequest.requestSerializerType == MKRequestSerializerTypeHTTP) {
+        requestSerializer = [AFHTTPRequestSerializer serializer];
+    } else if (baseRequest.requestSerializerType == MKRequestSerializerTypeJSON) {
+        requestSerializer = [AFJSONRequestSerializer serializer];
+    }
+    requestSerializer.timeoutInterval = [baseRequest requestTimeoutInterval];
+    requestSerializer.cachePolicy = NSURLRequestUseProtocolCachePolicy;
+    
+    NSURLRequest *request = nil;
+    switch (method) {
+        case MKRequestMethodGet:
+            request = [self generateRequestWithUrlString:url Params:param methodName:@"GET" serializer:requestSerializer];
+            break;
+        case MKRequestMethodPost:
+            request = [self generateRequestWithUrlString:url Params:param methodName:@"Post" serializer:requestSerializer];
+            break;
+        case MKRequestMethodHead:
+            request = [self generateRequestWithUrlString:url Params:param methodName:@"Head" serializer:requestSerializer];
+            break;
+        case MKRequestMethodPut:
+            request = [self generateRequestWithUrlString:url Params:param methodName:@"Put" serializer:requestSerializer];
+            break;
+        case MKRequestMethodDelete:
+            request = [self generateRequestWithUrlString:url Params:param methodName:@"Delete" serializer:requestSerializer];
+            break;
+        case MKRequestMethodPatch:
+            request = [self generateRequestWithUrlString:url Params:param methodName:@"Patch" serializer:requestSerializer];
+            break;
+            
+        default:
+            request = [self generateRequestWithUrlString:url Params:param methodName:@"POST" serializer:requestSerializer];
+            break;
+    }
     
     // 跑到这里的block的时候，就已经是主线程了。
     __block NSURLSessionDataTask *dataTask = nil;
@@ -90,4 +127,11 @@
     _requestsRecord[requestId] = dataTask;
     [dataTask resume];
 }
+
+- (NSURLRequest *)generateRequestWithUrlString:(NSString *)url Params:(NSDictionary *)requestParams methodName:(NSString *)methodName serializer:(AFHTTPRequestSerializer*)requestSerializer{
+    
+    NSMutableURLRequest *request = [requestSerializer requestWithMethod:methodName URLString:url parameters:requestParams error:NULL];
+    return request;
+}
+
 @end

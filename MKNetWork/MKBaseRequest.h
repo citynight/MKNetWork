@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger , MKRequestMethod) {
     MKRequestMethodGet = 0,
@@ -16,6 +17,11 @@ typedef NS_ENUM(NSInteger , MKRequestMethod) {
     MKRequestMethodPut,
     MKRequestMethodDelete,
     MKRequestMethodPatch,
+};
+
+typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
+    MKRequestSerializerTypeHTTP = 0,
+    MKRequestSerializerTypeJSON,
 };
 
 @interface MKBaseRequest : NSObject
@@ -55,6 +61,12 @@ typedef NS_ENUM(NSInteger , MKRequestMethod) {
 /// Http请求的方法
 - (MKRequestMethod)requestMethod;
 
+/// 请求的SerializerType
+- (MKRequestSerializerType)requestSerializerType;
+
 /// 是否使用game的host地址
 - (BOOL)useGame;
+
 @end
+
+NS_ASSUME_NONNULL_END

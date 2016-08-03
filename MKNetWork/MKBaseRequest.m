@@ -18,7 +18,7 @@
     
 }
 
--(NSString *)requestUrl {
+- (NSString *)requestUrl {
     return @"";
 }
 
@@ -40,6 +40,10 @@
 
 - (MKRequestMethod)requestMethod {
     return MKRequestMethodPost;
+}
+
+- (MKRequestSerializerType)requestSerializerType{
+    return MKRequestSerializerTypeHTTP;
 }
 
 - (BOOL)useGame {
