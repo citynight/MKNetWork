@@ -21,4 +21,28 @@
 -(NSString *)requestUrl {
     return @"";
 }
+
+- (NSString *)baseUrl {
+    return @"";
+}
+
+- (NSString *)gameUrl {
+    return @"";
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return 60;
+}
+
+- (id)requestArgument {
+    return nil;
+}
+
+- (MKRequestMethod)requestMethod {
+    return MKRequestMethodPost;
+}
+
+- (BOOL)useGame {
+    return NO;
+}
 @end

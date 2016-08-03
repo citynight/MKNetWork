@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+
+typedef NS_ENUM(NSInteger , MKRequestMethod) {
+    MKRequestMethodGet = 0,
+    MKRequestMethodPost,
+    MKRequestMethodHead,
+    MKRequestMethodPut,
+    MKRequestMethodDelete,
+    MKRequestMethodPatch,
+};
+
 @interface MKBaseRequest : NSObject
 
 // 让调用者使用的
@@ -29,4 +39,22 @@
 
 /// 请求的URL
 - (NSString *)requestUrl;
+
+/// 请求的BaseURL
+- (NSString *)baseUrl;
+
+/// 请求的游戏URL
+- (NSString *)gameUrl;
+
+/// 请求的连接超时时间，默认为60秒
+- (NSTimeInterval)requestTimeoutInterval;
+
+/// 请求的参数列表
+- (nullable id)requestArgument;
+
+/// Http请求的方法
+- (MKRequestMethod)requestMethod;
+
+/// 是否使用game的host地址
+- (BOOL)useGame;
 @end

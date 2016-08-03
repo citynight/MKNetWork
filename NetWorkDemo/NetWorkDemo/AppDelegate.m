@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "MKNetworkConfig.h"
+#import "MKUrlArgumentsFilter.h"
 
 @interface AppDelegate ()
 
@@ -14,9 +16,18 @@
 
 @implementation AppDelegate
 
+- (void)setupRequestFilters {
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    MKNetworkConfig *config = [MKNetworkConfig sharedInstance];
+    MKUrlArgumentsFilter *urlFilter = [MKUrlArgumentsFilter filterWithArguments:@{@"version": appVersion}];
+    [config addUrlFilter:urlFilter];
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    [self setupRequestFilters];
+    
     return YES;
 }
 

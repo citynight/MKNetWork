@@ -16,6 +16,8 @@
 		B280F6961D5051D20092D43F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B280F6941D5051D20092D43F /* LaunchScreen.storyboard */; };
 		B2F319F01D51BF0600491C21 /* MKBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F319ED1D51BF0600491C21 /* MKBaseRequest.m */; };
 		B2F319F11D51BF0600491C21 /* MKNetWorkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F319EF1D51BF0600491C21 /* MKNetWorkAgent.m */; };
+		B2F319F41D51CD9100491C21 /* MKNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F319F31D51CD9100491C21 /* MKNetworkConfig.m */; };
+		B2F319F71D51FD1100491C21 /* MKUrlArgumentsFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F319F61D51FD1100491C21 /* MKUrlArgumentsFilter.m */; };
 		B2FED9281D51B49200886082 /* BDApi.m in Sources */ = {isa = PBXBuildFile; fileRef = B2FED9271D51B49200886082 /* BDApi.m */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +39,10 @@
 		B2F319ED1D51BF0600491C21 /* MKBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKBaseRequest.m; sourceTree = "<group>"; };
 		B2F319EE1D51BF0600491C21 /* MKNetWorkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetWorkAgent.h; sourceTree = "<group>"; };
 		B2F319EF1D51BF0600491C21 /* MKNetWorkAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNetWorkAgent.m; sourceTree = "<group>"; };
+		B2F319F21D51CD9100491C21 /* MKNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkConfig.h; sourceTree = "<group>"; };
+		B2F319F31D51CD9100491C21 /* MKNetworkConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNetworkConfig.m; sourceTree = "<group>"; };
+		B2F319F51D51FD1100491C21 /* MKUrlArgumentsFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKUrlArgumentsFilter.h; sourceTree = "<group>"; };
+		B2F319F61D51FD1100491C21 /* MKUrlArgumentsFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKUrlArgumentsFilter.m; sourceTree = "<group>"; };
 		B2FED9261D51B49200886082 /* BDApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDApi.h; sourceTree = "<group>"; };
 		B2FED9271D51B49200886082 /* BDApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDApi.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +102,8 @@
 				B280F68A1D5051D20092D43F /* AppDelegate.m */,
 				B280F68C1D5051D20092D43F /* ViewController.h */,
 				B280F68D1D5051D20092D43F /* ViewController.m */,
+				B2F319F51D51FD1100491C21 /* MKUrlArgumentsFilter.h */,
+				B2F319F61D51FD1100491C21 /* MKUrlArgumentsFilter.m */,
 				B2FED9261D51B49200886082 /* BDApi.h */,
 				B2FED9271D51B49200886082 /* BDApi.m */,
 				B280F68F1D5051D20092D43F /* Main.storyboard */,
@@ -122,6 +130,8 @@
 				B2F319ED1D51BF0600491C21 /* MKBaseRequest.m */,
 				B2F319EE1D51BF0600491C21 /* MKNetWorkAgent.h */,
 				B2F319EF1D51BF0600491C21 /* MKNetWorkAgent.m */,
+				B2F319F21D51CD9100491C21 /* MKNetworkConfig.h */,
+				B2F319F31D51CD9100491C21 /* MKNetworkConfig.m */,
 			);
 			name = MKNetWork;
 			path = ../../MKNetWork;
@@ -248,10 +258,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2F319F71D51FD1100491C21 /* MKUrlArgumentsFilter.m in Sources */,
 				B2F319F11D51BF0600491C21 /* MKNetWorkAgent.m in Sources */,
 				B2FED9281D51B49200886082 /* BDApi.m in Sources */,
 				B280F68E1D5051D20092D43F /* ViewController.m in Sources */,
 				B280F68B1D5051D20092D43F /* AppDelegate.m in Sources */,
+				B2F319F41D51CD9100491C21 /* MKNetworkConfig.m in Sources */,
 				B280F6881D5051D20092D43F /* main.m in Sources */,
 				B2F319F01D51BF0600491C21 /* MKBaseRequest.m in Sources */,
 			);

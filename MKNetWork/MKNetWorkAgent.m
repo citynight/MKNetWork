@@ -40,12 +40,20 @@
     return self;
 }
 
+- (NSString *)buildRequestUrl:(MKBaseRequest*)request {
+    NSString *detailUrl = [request requestUrl];
+    if ([detailUrl hasPrefix:@"http"]) {
+        return detailUrl;
+    }
+    return detailUrl;
+}
+
 - (void)addRequest:(MKBaseRequest *)baseRequest {
     NSLog(@"\n==================================\n\nRequest Start: \n\n "
           @"%@\n\n==================================",
           [baseRequest requestUrl]);
     
-    
+    NSString *url = [self buildRequestUrl:baseRequest];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[baseRequest requestUrl]]];
     
     // 跑到这里的block的时候，就已经是主线程了。
