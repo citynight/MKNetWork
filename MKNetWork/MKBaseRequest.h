@@ -24,6 +24,15 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
     MKRequestSerializerTypeJSON,
 };
 
+@class MKBaseRequest;
+@protocol MKRequestDelegate <NSObject>
+
+@optional
+- (void)requestFinished:(MKBaseRequest *)request;
+- (void)requestFailed:(MKBaseRequest *)request;
+
+@end
+
 @interface MKBaseRequest : NSObject
 
 // 让调用者使用的
@@ -35,6 +44,8 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 
 /// Tag
 @property (nonatomic, assign) NSInteger tag;
+/// request delegate object
+@property (nonatomic, weak, nullable) id<MKRequestDelegate> delegate;
 
 /// append self to request queue
 - (void)start;

@@ -10,6 +10,14 @@
 
 @implementation BDApi
 -(NSString *)requestUrl {
-    return @"http://www.baidu.com";
+    return @"http://www.baidu.com/s";
+}
+
+-(MKRequestMethod)requestMethod {
+    return MKRequestMethodGet;
+}
+
+-(id)requestArgument {
+    return @{@"wd":@"微指"};
 }
 @end

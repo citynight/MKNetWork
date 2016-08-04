@@ -73,19 +73,19 @@
             request = [self generateRequestWithUrlString:url Params:param methodName:@"GET" serializer:requestSerializer];
             break;
         case MKRequestMethodPost:
-            request = [self generateRequestWithUrlString:url Params:param methodName:@"Post" serializer:requestSerializer];
+            request = [self generateRequestWithUrlString:url Params:param methodName:@"POST" serializer:requestSerializer];
             break;
         case MKRequestMethodHead:
-            request = [self generateRequestWithUrlString:url Params:param methodName:@"Head" serializer:requestSerializer];
+            request = [self generateRequestWithUrlString:url Params:param methodName:@"HEAD" serializer:requestSerializer];
             break;
         case MKRequestMethodPut:
-            request = [self generateRequestWithUrlString:url Params:param methodName:@"Put" serializer:requestSerializer];
+            request = [self generateRequestWithUrlString:url Params:param methodName:@"PUT" serializer:requestSerializer];
             break;
         case MKRequestMethodDelete:
-            request = [self generateRequestWithUrlString:url Params:param methodName:@"Delete" serializer:requestSerializer];
+            request = [self generateRequestWithUrlString:url Params:param methodName:@"DELETE" serializer:requestSerializer];
             break;
         case MKRequestMethodPatch:
-            request = [self generateRequestWithUrlString:url Params:param methodName:@"Patch" serializer:requestSerializer];
+            request = [self generateRequestWithUrlString:url Params:param methodName:@"PATCH" serializer:requestSerializer];
             break;
             
         default:
@@ -113,11 +113,16 @@
                     NSLog(@"responseString:%@",responseString);
                     if (error) {
                         NSLog(@"error: %@",error);
-                        
+                        if(baseRequest.delegate != nil){
+                            [baseRequest.delegate requestFailed:baseRequest];
+                        }
 #warning TODO: 失败回掉
                         NSLog(@"这里应该进行失败回掉");
                     } else {
                         // 检查http response是否成立。
+                        if(baseRequest.delegate != nil){
+                            [baseRequest.delegate requestFinished:baseRequest];
+                        }
 #warning TODO: 成功回掉
                         NSLog(@"这里应该进行成功回掉");
                     }
@@ -128,10 +133,19 @@
     [dataTask resume];
 }
 
+#pragma mark - 生成request
 - (NSURLRequest *)generateRequestWithUrlString:(NSString *)url Params:(NSDictionary *)requestParams methodName:(NSString *)methodName serializer:(AFHTTPRequestSerializer*)requestSerializer{
     
+    
     NSMutableURLRequest *request = [requestSerializer requestWithMethod:methodName URLString:url parameters:requestParams error:NULL];
+    [request setValue:@"123123" forHTTPHeaderField:@"xxxxxxxx"];
+
     return request;
+}
+
+#pragma mark handleRequestResult
+- (void)handleRequestResult:(NSURLResponse *_Nonnull)response{
+    
 }
 
 @end

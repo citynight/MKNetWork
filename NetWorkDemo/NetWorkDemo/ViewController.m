@@ -9,7 +9,8 @@
 #import "ViewController.h"
 #import "BDApi.h"
 
-@interface ViewController ()
+@interface ViewController ()<MKRequestDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *resultLabel;
 
 @end
 
@@ -17,25 +18,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    
-//    AFHTTPRequestSerializer *httpRequestSerializer = [AFHTTPRequestSerializer serializer];
-//    httpRequestSerializer.timeoutInterval = 20.0f;
-//    httpRequestSerializer.cachePolicy = NSURLRequestUseProtocolCachePolicy;
-//    /// 网络请求头部插入一些内容
-//    [httpRequestSerializer setValue:@"测试数据......." forHTTPHeaderField:@"xxxxxxxx"];
-//    NSMutableURLRequest *request = [httpRequestSerializer requestWithMethod:@"GET"
-//                                                                  URLString:@"http://www.baidu.com"
-//                                                                      parameters:nil
-//                                                                           error:NULL];
-//    [[MKNetWorkAgent sharedInstance] addRequest:request];
     
     BDApi *api = [[BDApi alloc]init];
+    api.delegate = self;
     [api start];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)requestFinished:(MKBaseRequest *)request{
+    NSLog(@"成功");
+    self.resultLabel.text = @"成功";
 }
+- (void)requestFailed:(MKBaseRequest *)request{
+    NSLog(@"失败");
+    self.resultLabel.text = @"失败";
+}
+
 
 @end
