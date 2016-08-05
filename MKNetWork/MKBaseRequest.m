@@ -26,7 +26,7 @@
     return @"";
 }
 
-- (NSString *)gameUrl {
+- (NSString *)cdnUrl {
     return @"";
 }
 
@@ -42,7 +42,7 @@
     return MKRequestSerializerTypeHTTP;
 }
 
-- (BOOL)useGame {
+- (BOOL)useCDN {
     return NO;
 }
 @end

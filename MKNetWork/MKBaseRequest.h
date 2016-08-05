@@ -72,8 +72,8 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 /// 请求的BaseURL
 - (NSString *)baseUrl;
 
-/// 请求的游戏URL
-- (NSString *)gameUrl;
+/// 请求的cdnURL
+- (NSString *)cdnUrl;
 
 /// 请求的连接超时时间，默认为60秒
 - (NSTimeInterval)requestTimeoutInterval;
@@ -84,8 +84,8 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 /// 请求的SerializerType
 - (MKRequestSerializerType)requestSerializerType;
 
-/// 是否使用game的host地址
-- (BOOL)useGame;
+/// 是否使用cdn的host地址
+- (BOOL)useCDN;
 
 @end
 

@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @property (strong, nonatomic) NSString *baseUrl;
-@property (strong, nonatomic) NSString *gameUrl;
+@property (strong, nonatomic) NSString *cdnUrl;
 
 @property (strong, nonatomic, readonly) NSArray<id<MKUrlFilterProtocol>> *urlFilters;
 @property (strong, nonatomic) AFSecurityPolicy *securityPolicy;

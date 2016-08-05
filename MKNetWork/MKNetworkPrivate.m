@@ -10,6 +10,7 @@
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation MKNetworkPrivate
+
 + (NSString *)urlStringWithOriginUrlString:(NSString *)originUrlString appendParameters:(NSDictionary *)parameters {
     NSString *filteredUrl = originUrlString;
     NSString *paraUrlString = [self urlParametersStringFromParameters:parameters];

@@ -26,7 +26,7 @@
     self = [super init];
     if (self) {
         _baseUrl = @"";
-        _gameUrl = @"";
+        _cdnUrl = @"";
         _urlFilters = [NSMutableArray array];
         _securityPolicy = [AFSecurityPolicy defaultPolicy];
     }

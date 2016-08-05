@@ -158,11 +158,11 @@
         detailUrl = [f filterUrl:detailUrl withRequest:request];
     }
     NSString *baseUrl;
-    if ([request useGame]) {
-        if ([request gameUrl].length > 0) {
-            baseUrl = [request gameUrl];
+    if ([request useCDN]) {
+        if ([request cdnUrl].length > 0) {
+            baseUrl = [request cdnUrl];
         } else {
-            baseUrl = [_config gameUrl];
+            baseUrl = [_config cdnUrl];
         }
     } else {
         if ([request baseUrl].length > 0) {
