@@ -7,6 +7,7 @@
 //
 
 #import "MKNetworkConfig.h"
+#import <AFNetworking.h>
 
 @implementation MKNetworkConfig {
     NSMutableArray<id<MKUrlFilterProtocol>> *_urlFilters;
@@ -27,6 +28,7 @@
         _baseUrl = @"";
         _gameUrl = @"";
         _urlFilters = [NSMutableArray array];
+        _securityPolicy = [AFSecurityPolicy defaultPolicy];
     }
     return self;
 }

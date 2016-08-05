@@ -10,14 +10,14 @@
 
 @implementation BDApi
 -(NSString *)requestUrl {
-    return @"http://www.baidu.com/s";
+    return @"welcome.php";
 }
 
 -(MKRequestMethod)requestMethod {
     return MKRequestMethodGet;
 }
 
--(id)requestArgument {
-    return @{@"wd":@"微指"};
+-(MKRequestSerializerType)requestSerializerType {
+    return MKRequestSerializerTypeHTTP;
 }
 @end

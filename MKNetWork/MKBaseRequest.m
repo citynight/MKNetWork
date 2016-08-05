@@ -15,7 +15,7 @@
 }
 
 -(void)stop {
-    
+    [[MKNetWorkAgent sharedInstance]cancelRequest:self.requestID];
 }
 
 - (NSString *)requestUrl {
@@ -32,10 +32,6 @@
 
 - (NSTimeInterval)requestTimeoutInterval {
     return 60;
-}
-
-- (id)requestArgument {
-    return nil;
 }
 
 - (MKRequestMethod)requestMethod {

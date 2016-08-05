@@ -9,10 +9,12 @@
 #import "MKNetWorkAgent.h"
 #import <AFNetWorking.h>
 #import "MKBaseRequest.h"
+#import "MKNetworkConfig.h"
 
 @implementation MKNetWorkAgent {
     AFHTTPSessionManager *_manager;///< SessionManager
     NSMutableDictionary<NSNumber *, NSURLSessionDataTask *> *_requestsRecord;///< 请求列表
+    MKNetworkConfig *_config;
 }
 
 + (MKNetWorkAgent *)sharedInstance {
@@ -28,26 +30,23 @@
 {
     self = [super init];
     if (self) {
+        // 配置初始化
+        _config = [MKNetworkConfig sharedInstance];
+        
         // 实例化 AFHTTPSessionManager
         _manager = [AFHTTPSessionManager manager];
         _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         _manager.securityPolicy.allowInvalidCertificates = YES;
         _manager.securityPolicy.validatesDomainName = NO;
-        
+        _manager.securityPolicy = _config.securityPolicy;
         // 实例化 requestsRecord
         _requestsRecord = [NSMutableDictionary dictionary];
+        
     }
     return self;
 }
 
-- (NSString *)buildRequestUrl:(MKBaseRequest*)request {
-    NSString *detailUrl = [request requestUrl];
-    if ([detailUrl hasPrefix:@"http"]) {
-        return detailUrl;
-    }
-    return detailUrl;
-}
-
+#pragma mark 添加网络请求
 - (void)addRequest:(MKBaseRequest *)baseRequest {
     NSLog(@"\n==================================\n\nRequest Start: \n\n "
           @"%@\n\n==================================",
@@ -56,7 +55,7 @@
     
     MKRequestMethod method = [baseRequest requestMethod];
     NSString *url = [self buildRequestUrl:baseRequest];
-    id param = baseRequest.requestArgument;
+    id param = [baseRequest.paramSource paramsForRequest:baseRequest];
     
     AFHTTPRequestSerializer *requestSerializer = nil;
     if (baseRequest.requestSerializerType == MKRequestSerializerTypeHTTP) {
@@ -95,43 +94,46 @@
     
     // 跑到这里的block的时候，就已经是主线程了。
     __block NSURLSessionDataTask *dataTask = nil;
-    dataTask = [_manager
-                dataTaskWithRequest:request
-                completionHandler:^(NSURLResponse *_Nonnull response,
-                                    id _Nullable responseObject,
-                                    NSError *_Nullable error) {
-                    NSNumber *requestID = @([dataTask taskIdentifier]);
-                    [_requestsRecord removeObjectForKey:requestID];
-                    NSData *responseData = responseObject;
-                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                    
-                    
-                    NSString *responseString =
-                    [[NSString alloc] initWithData:responseData
-                                          encoding:NSUTF8StringEncoding];
-                    
-                    NSLog(@"responseString:%@",responseString);
-                    if (error) {
-                        NSLog(@"error: %@",error);
-                        if(baseRequest.delegate != nil){
-                            [baseRequest.delegate requestFailed:baseRequest];
-                        }
-#warning TODO: 失败回掉
-                        NSLog(@"这里应该进行失败回掉");
-                    } else {
-                        // 检查http response是否成立。
-                        if(baseRequest.delegate != nil){
-                            [baseRequest.delegate requestFinished:baseRequest];
-                        }
-#warning TODO: 成功回掉
-                        NSLog(@"这里应该进行成功回掉");
-                    }
-                }];
+    
+    dataTask = [_manager dataTaskWithRequest:request
+                           completionHandler:^(NSURLResponse *_Nonnull response,
+                                               id _Nullable responseObject,
+                                               NSError *_Nullable error)
+    {
+        NSNumber *requestID = @([dataTask taskIdentifier]);
+        baseRequest.requestID = requestID;
+        baseRequest.responseObject = responseObject;
+        
+        [_requestsRecord removeObjectForKey:requestID];
+        
+        if (error) {
+            if(baseRequest.delegate != nil){
+                [baseRequest.delegate requestFailed:baseRequest];
+            }
+        } else {
+            // 检查http response是否成立。
+            if(baseRequest.delegate != nil){
+                [baseRequest.delegate requestFinished:baseRequest];
+            }
+        }
+    }];
     // 添加到请求列表
     NSNumber *requestId = @([dataTask taskIdentifier]);
+    NSLog(@"获取到requestId");
     _requestsRecord[requestId] = dataTask;
     [dataTask resume];
 }
+
+#pragma mark 取消网络请求
+-(void)cancelRequest:(NSNumber *)requestID {
+    NSURLSessionDataTask *requestOperation = _requestsRecord[requestID];
+    if (!requestOperation) {
+        return;
+    }
+    [requestOperation cancel];
+    [_requestsRecord removeObjectForKey:requestID];
+}
+
 
 #pragma mark - 生成request
 - (NSURLRequest *)generateRequestWithUrlString:(NSString *)url Params:(NSDictionary *)requestParams methodName:(NSString *)methodName serializer:(AFHTTPRequestSerializer*)requestSerializer{
@@ -143,9 +145,33 @@
     return request;
 }
 
-#pragma mark handleRequestResult
-- (void)handleRequestResult:(NSURLResponse *_Nonnull)response{
+#pragma mark 生成url
+- (NSString *)buildRequestUrl:(MKBaseRequest*)request {
+    NSString *detailUrl = [request requestUrl];
+    if ([detailUrl hasPrefix:@"http"]) {
+        return detailUrl;
+    }
     
+    // filter url
+    NSArray *filters = [_config urlFilters];
+    for (id<MKUrlFilterProtocol> f in filters) {
+        detailUrl = [f filterUrl:detailUrl withRequest:request];
+    }
+    NSString *baseUrl;
+    if ([request useGame]) {
+        if ([request gameUrl].length > 0) {
+            baseUrl = [request gameUrl];
+        } else {
+            baseUrl = [_config gameUrl];
+        }
+    } else {
+        if ([request baseUrl].length > 0) {
+            baseUrl = [request baseUrl];
+        } else {
+            baseUrl = [_config baseUrl];
+        }
+    }
+    return [NSString stringWithFormat:@"%@%@", baseUrl, detailUrl];
 }
 
 @end

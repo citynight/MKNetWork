@@ -11,20 +11,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class AFSecurityPolicy;
+
 @protocol MKUrlFilterProtocol <NSObject>
 - (NSString *)filterUrl:(NSString *)originUrl withRequest:(MKBaseRequest *)request;
 @end
 
 @interface MKNetworkConfig : NSObject
 
-+ (MKNetworkConfig *)sharedInstance;
 
 @property (strong, nonatomic) NSString *baseUrl;
 @property (strong, nonatomic) NSString *gameUrl;
 
 @property (strong, nonatomic, readonly) NSArray<id<MKUrlFilterProtocol>> *urlFilters;
+@property (strong, nonatomic) AFSecurityPolicy *securityPolicy;
 
-
++ (MKNetworkConfig *)sharedInstance;
 - (void)addUrlFilter:(id<MKUrlFilterProtocol>)filter;
 
 @end

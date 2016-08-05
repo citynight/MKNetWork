@@ -25,6 +25,8 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 };
 
 @class MKBaseRequest;
+
+/// 回调代理
 @protocol MKRequestDelegate <NSObject>
 
 @optional
@@ -33,19 +35,29 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 
 @end
 
+
+/// 数据源:获得所需要的参数
+@protocol MKRequestParamSource <NSObject>
+@required
+- (NSDictionary *)paramsForRequest:(MKBaseRequest *)request;
+@end
+
 @interface MKBaseRequest : NSObject
 
-// 让调用者使用的
 /**
- requestUrl
- requestMethod
- requestArgument
+    保存结果
  */
+/// requestID
+@property (nonatomic, assign) NSNumber* requestID;
+@property (nonatomic, strong, nullable) id responseObject;
 
-/// Tag
-@property (nonatomic, assign) NSInteger tag;
+/**
+    调用需要
+ */
 /// request delegate object
 @property (nonatomic, weak, nullable) id<MKRequestDelegate> delegate;
+/// request paramSource
+@property (nonatomic, weak, nullable) id<MKRequestParamSource> paramSource;
 
 /// append self to request queue
 - (void)start;
@@ -65,9 +77,6 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 
 /// 请求的连接超时时间，默认为60秒
 - (NSTimeInterval)requestTimeoutInterval;
-
-/// 请求的参数列表
-- (nullable id)requestArgument;
 
 /// Http请求的方法
 - (MKRequestMethod)requestMethod;

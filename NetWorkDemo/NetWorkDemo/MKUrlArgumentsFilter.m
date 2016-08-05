@@ -7,6 +7,7 @@
 //
 
 #import "MKUrlArgumentsFilter.h"
+#import "MKNetworkPrivate.h"
 
 @implementation MKUrlArgumentsFilter{
     NSDictionary *_arguments;
@@ -25,7 +26,6 @@
 }
 
 - (NSString *)filterUrl:(NSString *)originUrl withRequest:(MKBaseRequest *)request {
-    return @"这里可以进行url处理";
+    return [MKNetworkPrivate urlStringWithOriginUrlString:originUrl appendParameters:_arguments];
 }
-
 @end

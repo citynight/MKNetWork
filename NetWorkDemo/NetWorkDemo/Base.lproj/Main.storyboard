@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,26 +18,70 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agD-Ao-k07">
-                                <rect key="frame" x="139" y="229" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="结果" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agD-Ao-k07">
+                                <rect key="frame" x="143" y="229" width="34" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账号:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Svu-dV-SHw">
+                                <rect key="frame" x="30" y="40" width="39" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVc-Al-sE2">
+                                <rect key="frame" x="30" y="71" width="39" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dVR-cU-k9l">
+                                <rect key="frame" x="145" y="126.5" width="30" height="30"/>
+                                <state key="normal" title="登陆"/>
+                                <connections>
+                                    <action selector="loginClick" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ajy-w6-YoI"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rhx-7X-aEa">
+                                <rect key="frame" x="80" y="36" width="224" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XxO-Bn-Eo7">
+                                <rect key="frame" x="80" y="66.5" width="224" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="rhx-7X-aEa" firstAttribute="centerY" secondItem="Svu-dV-SHw" secondAttribute="centerY" id="72V-gj-VQ8"/>
+                            <constraint firstItem="dVR-cU-k9l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8C5-4l-0Wt"/>
+                            <constraint firstItem="Svu-dV-SHw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="14" id="CEp-zH-cL3"/>
+                            <constraint firstItem="kVc-Al-sE2" firstAttribute="leading" secondItem="Svu-dV-SHw" secondAttribute="leading" id="Cjc-V3-MHu"/>
+                            <constraint firstItem="Svu-dV-SHw" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="FZQ-6H-xj7"/>
+                            <constraint firstItem="rhx-7X-aEa" firstAttribute="leading" secondItem="Svu-dV-SHw" secondAttribute="trailing" constant="11" id="GaH-I5-Win"/>
+                            <constraint firstItem="XxO-Bn-Eo7" firstAttribute="centerY" secondItem="kVc-Al-sE2" secondAttribute="centerY" id="NhX-85-K7t"/>
+                            <constraint firstItem="XxO-Bn-Eo7" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Oxs-79-Gnh"/>
                             <constraint firstItem="agD-Ao-k07" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XYS-Kk-Cp5"/>
+                            <constraint firstItem="dVR-cU-k9l" firstAttribute="top" secondItem="XxO-Bn-Eo7" secondAttribute="bottom" constant="30" id="Zcg-sQ-PSv"/>
+                            <constraint firstItem="rhx-7X-aEa" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="edv-MU-F8n"/>
                             <constraint firstItem="agD-Ao-k07" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="gbN-dN-wmE"/>
+                            <constraint firstItem="kVc-Al-sE2" firstAttribute="top" secondItem="Svu-dV-SHw" secondAttribute="bottom" constant="10" id="k5K-uV-reK"/>
+                            <constraint firstItem="XxO-Bn-Eo7" firstAttribute="leading" secondItem="kVc-Al-sE2" secondAttribute="trailing" constant="11" id="nMb-2j-2m6"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="nameTextField" destination="rhx-7X-aEa" id="96g-Ja-3Xa"/>
+                        <outlet property="pwdTextField" destination="XxO-Bn-Eo7" id="A2C-9O-JYX"/>
                         <outlet property="resultLabel" destination="agD-Ao-k07" id="86N-2I-vhH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="268" y="359"/>
         </scene>
     </scenes>
 </document>

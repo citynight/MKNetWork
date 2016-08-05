@@ -14,7 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MKNetWorkAgent : NSObject
 
 + (MKNetWorkAgent *)sharedInstance;
+/// 添加网络请求
 - (void)addRequest:(MKBaseRequest *)baseRequest;
+/// 取消网络请求
+- (void)cancelRequest:(NSNumber *)requestID;
 
 @end
 
