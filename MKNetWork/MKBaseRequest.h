@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 @optional
 - (void)requestFinished:(MKBaseRequest *)request;
 - (void)requestFailed:(MKBaseRequest *)request;
-
+- (void)clearRequest;
 @end
 
 

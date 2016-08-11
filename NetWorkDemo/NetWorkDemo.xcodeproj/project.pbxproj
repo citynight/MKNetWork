@@ -15,6 +15,8 @@
 		B280F6931D5051D20092D43F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B280F6921D5051D20092D43F /* Assets.xcassets */; };
 		B280F6961D5051D20092D43F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B280F6941D5051D20092D43F /* LaunchScreen.storyboard */; };
 		B2B622F71D54CF4900E6D0B7 /* MKNetworkPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B622F61D54CF4900E6D0B7 /* MKNetworkPrivate.m */; };
+		B2C34F391D5CC9C1004B0EDA /* MKChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C34F381D5CC9C1004B0EDA /* MKChainRequest.m */; };
+		B2C34F3C1D5CCB20004B0EDA /* MKChainRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C34F3B1D5CCB20004B0EDA /* MKChainRequestAgent.m */; };
 		B2F319F01D51BF0600491C21 /* MKBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F319ED1D51BF0600491C21 /* MKBaseRequest.m */; };
 		B2F319F11D51BF0600491C21 /* MKNetWorkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F319EF1D51BF0600491C21 /* MKNetWorkAgent.m */; };
 		B2F319F41D51CD9100491C21 /* MKNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F319F31D51CD9100491C21 /* MKNetworkConfig.m */; };
@@ -38,6 +40,10 @@
 		B280F6971D5051D20092D43F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2B622F51D54CF4900E6D0B7 /* MKNetworkPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkPrivate.h; sourceTree = "<group>"; };
 		B2B622F61D54CF4900E6D0B7 /* MKNetworkPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNetworkPrivate.m; sourceTree = "<group>"; };
+		B2C34F371D5CC9C1004B0EDA /* MKChainRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKChainRequest.h; sourceTree = "<group>"; };
+		B2C34F381D5CC9C1004B0EDA /* MKChainRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKChainRequest.m; sourceTree = "<group>"; };
+		B2C34F3A1D5CCB20004B0EDA /* MKChainRequestAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKChainRequestAgent.h; sourceTree = "<group>"; };
+		B2C34F3B1D5CCB20004B0EDA /* MKChainRequestAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKChainRequestAgent.m; sourceTree = "<group>"; };
 		B2F319EC1D51BF0600491C21 /* MKBaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKBaseRequest.h; sourceTree = "<group>"; };
 		B2F319ED1D51BF0600491C21 /* MKBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKBaseRequest.m; sourceTree = "<group>"; };
 		B2F319EE1D51BF0600491C21 /* MKNetWorkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetWorkAgent.h; sourceTree = "<group>"; };
@@ -137,6 +143,10 @@
 				B2F319F31D51CD9100491C21 /* MKNetworkConfig.m */,
 				B2B622F51D54CF4900E6D0B7 /* MKNetworkPrivate.h */,
 				B2B622F61D54CF4900E6D0B7 /* MKNetworkPrivate.m */,
+				B2C34F371D5CC9C1004B0EDA /* MKChainRequest.h */,
+				B2C34F381D5CC9C1004B0EDA /* MKChainRequest.m */,
+				B2C34F3A1D5CCB20004B0EDA /* MKChainRequestAgent.h */,
+				B2C34F3B1D5CCB20004B0EDA /* MKChainRequestAgent.m */,
 			);
 			name = MKNetWork;
 			path = ../../MKNetWork;
@@ -264,8 +274,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2F319F71D51FD1100491C21 /* MKUrlArgumentsFilter.m in Sources */,
+				B2C34F3C1D5CCB20004B0EDA /* MKChainRequestAgent.m in Sources */,
 				B2F319F11D51BF0600491C21 /* MKNetWorkAgent.m in Sources */,
 				B2FED9281D51B49200886082 /* BDApi.m in Sources */,
+				B2C34F391D5CC9C1004B0EDA /* MKChainRequest.m in Sources */,
 				B280F68E1D5051D20092D43F /* ViewController.m in Sources */,
 				B280F68B1D5051D20092D43F /* AppDelegate.m in Sources */,
 				B2F319F41D51CD9100491C21 /* MKNetworkConfig.m in Sources */,

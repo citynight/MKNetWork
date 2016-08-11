@@ -19,7 +19,7 @@
 - (void)setupRequestFilters {
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     MKNetworkConfig *config = [MKNetworkConfig sharedInstance];
-    config.baseUrl = @"http://192.168.1.106/";
+    config.baseUrl = @"http://192.168.1.110/";
     MKUrlArgumentsFilter *urlFilter = [MKUrlArgumentsFilter filterWithArguments:@{@"version": appVersion}];
     [config addUrlFilter:urlFilter];
 }
