@@ -50,7 +50,11 @@
 
 #pragma mark - MKRequestParamSource
 -(NSDictionary *)paramsForRequest:(MKBaseRequest *)request {
-    return @{@"name":@"lxz",@"pwd":@"123"};
+    NSMutableDictionary *resultParams = [[NSMutableDictionary alloc] init];
+    resultParams[@"key"] = @"384ecc4559ffc3b9ed1f81076c5f8424";
+    resultParams[@"location"] = @"121.45429,31.228";
+    resultParams[@"output"] = @"json";
+    return resultParams;
 }
 
 

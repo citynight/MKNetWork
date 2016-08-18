@@ -10,7 +10,7 @@
 
 @implementation BDApi
 -(NSString *)requestUrl {
-    return @"welcome.php";
+    return @"geocode/regeo";
 }
 
 -(MKRequestMethod)requestMethod {
