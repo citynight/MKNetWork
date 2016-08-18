@@ -9,13 +9,19 @@
 #import "MKBaseRequest.h"
 #import "MKNetWorkAgent.h"
 
+@interface MKBaseRequest ()
+@property (nonatomic, assign, readwrite) BOOL isLoading;
+@end
+
 @implementation MKBaseRequest
 -(void)start {
     [[MKNetWorkAgent sharedInstance]addRequest:self];
+    self.isLoading = YES;
 }
 
 -(void)stop {
     [[MKNetWorkAgent sharedInstance]cancelRequest:self.requestID];
+    self.isLoading = NO;
 }
 
 - (NSString *)requestUrl {
@@ -44,5 +50,10 @@
 
 - (BOOL)useCDN {
     return NO;
+}
+
+-(void)setResponseObject:(id)responseObject {
+    _responseObject = responseObject;
+    self.isLoading = NO;
 }
 @end

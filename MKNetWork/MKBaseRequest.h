@@ -50,6 +50,8 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 /// requestID
 @property (nonatomic, assign) NSNumber* requestID;
 @property (nonatomic, strong, nullable) id responseObject;
+/// 是否正在加载
+@property (nonatomic, assign, readonly) BOOL isLoading;
 
 /**
     调用需要
