@@ -12,8 +12,6 @@
 @interface ViewController ()<MKRequestDelegate,MKRequestParamSource>
 @property (weak, nonatomic) IBOutlet UILabel *resultLabel;
 
-@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *pwdTextField;
 @property (nonatomic, strong)BDApi *api;
 @end
 
@@ -35,8 +33,8 @@
 
 #pragma mark - MKRequestDelegate
 - (void)requestFinished:(MKBaseRequest *)request{
-    NSLog(@"成功");
-    self.resultLabel.text = [NSString stringWithFormat:@"成功  -->\n%@",request.requestID];
+
+    self.resultLabel.text = @"成功";
     NSData *responseData = request.responseObject;
     NSString *responseString =
     [[NSString alloc] initWithData:responseData

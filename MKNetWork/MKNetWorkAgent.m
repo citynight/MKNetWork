@@ -15,6 +15,7 @@
     AFHTTPSessionManager *_manager;///< SessionManager
     NSMutableDictionary<NSNumber *, NSURLSessionDataTask *> *_requestsRecord;///< 请求列表
     MKNetworkConfig *_config;
+    AFNetworkReachabilityStatus _networkStatus;
 }
 
 + (MKNetWorkAgent *)sharedInstance {
@@ -41,10 +42,19 @@
         _manager.securityPolicy = _config.securityPolicy;
         // 实例化 requestsRecord
         _requestsRecord = [NSMutableDictionary dictionary];
+        _networkStatus = AFNetworkReachabilityStatusUnknown;
+        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:AFNetworkingReachabilityDidChangeNotification object:nil];
         
     }
     return self;
 }
+
+- (void)reachabilityChanged:(NSNotification *)notification
+{
+    _networkStatus = [notification.userInfo[AFNetworkingReachabilityNotificationStatusItem] integerValue];
+}
+
 
 #pragma mark 添加网络请求
 - (void)addRequest:(MKBaseRequest *)baseRequest {
@@ -52,6 +62,15 @@
           @"%@\n\n==================================",
           [baseRequest requestUrl]);
     
+    // 判断网络请求,如果没有网络直接返回失败
+    if(_networkStatus == AFNetworkReachabilityStatusNotReachable){
+        baseRequest.responseObject = nil;
+        baseRequest.requestID = @(0);
+        if(baseRequest.delegate != nil){
+            [baseRequest.delegate requestFailed:baseRequest];
+        }
+        return;
+    }
     
     MKRequestMethod method = [baseRequest requestMethod];
     NSString *url = [self buildRequestUrl:baseRequest];
@@ -91,10 +110,8 @@
             request = [self generateRequestWithUrlString:url Params:param methodName:@"POST" serializer:requestSerializer];
             break;
     }
-    
     // 跑到这里的block的时候，就已经是主线程了。
     __block NSURLSessionDataTask *dataTask = nil;
-    
     dataTask = [_manager dataTaskWithRequest:request
                            completionHandler:^(NSURLResponse *_Nonnull response,
                                                id _Nullable responseObject,
