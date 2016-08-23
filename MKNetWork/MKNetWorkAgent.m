@@ -56,6 +56,9 @@
 }
 
 
+#define GenerateRequest(MKMethod) [self generateRequestWithUrlString:url Params:params methodName:MKMethod serializer:requestSerializer]
+
+
 #pragma mark 添加网络请求
 - (void)addRequest:(MKBaseRequest *)baseRequest{
     [self addRequest:baseRequest WithParams:nil];
@@ -100,26 +103,26 @@
     NSURLRequest *request = nil;
     switch (method) {
         case MKRequestMethodGet:
-            request = [self generateRequestWithUrlString:url Params:params methodName:@"GET" serializer:requestSerializer];
+            request = GenerateRequest(@"GET");
             break;
         case MKRequestMethodPost:
-            request = [self generateRequestWithUrlString:url Params:params methodName:@"POST" serializer:requestSerializer];
+            request = GenerateRequest(@"POST");
             break;
         case MKRequestMethodHead:
-            request = [self generateRequestWithUrlString:url Params:params methodName:@"HEAD" serializer:requestSerializer];
+            request = GenerateRequest(@"HEAD");
             break;
         case MKRequestMethodPut:
-            request = [self generateRequestWithUrlString:url Params:params methodName:@"PUT" serializer:requestSerializer];
+            request = GenerateRequest(@"PUT");;
             break;
         case MKRequestMethodDelete:
-            request = [self generateRequestWithUrlString:url Params:params methodName:@"DELETE" serializer:requestSerializer];
+            request = GenerateRequest(@"DELETE");;
             break;
         case MKRequestMethodPatch:
-            request = [self generateRequestWithUrlString:url Params:params methodName:@"PATCH" serializer:requestSerializer];
+            request = GenerateRequest(@"PATCH");;
             break;
             
         default:
-            request = [self generateRequestWithUrlString:url Params:params methodName:@"POST" serializer:requestSerializer];
+            request = GenerateRequest(@"POST");;
             break;
     }
     
