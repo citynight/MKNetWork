@@ -14,14 +14,15 @@
 @end
 
 @implementation MKBaseRequest
--(void)start {
-    [[MKNetWorkAgent sharedInstance]addRequest:self];
-    self.isLoading = YES;
-}
 
--(void)stop {
+- (void)start {
+    [[MKNetWorkAgent sharedInstance]addRequest:self];
+}
+-(void)startWithParams:(id)params {
+    [[MKNetWorkAgent sharedInstance]addRequest:self WithParams:params];
+}
+- (void)stop {
     [[MKNetWorkAgent sharedInstance]cancelRequest:self.requestID];
-    self.isLoading = NO;
 }
 
 - (NSString *)requestUrl {
@@ -54,6 +55,14 @@
 
 -(void)setResponseObject:(id)responseObject {
     _responseObject = responseObject;
+    self.isLoading = NO;
+}
+
+//####################### 给子类调用,用于计算page #######################
+- (void)beforePerformRequestState{
+    self.isLoading = YES;
+}
+- (void)afterPerformResponseState:(BOOL)success{
     self.isLoading = NO;
 }
 @end

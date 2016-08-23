@@ -4,7 +4,7 @@
 //
 //  Created by Mekor on 8/2/16.
 //  Copyright © 2016 李小争. All rights reserved.
-//
+//  所有的网络接口直接继承自MKBaseRequest就可以了,可重写自己需要的内容
 
 #import <Foundation/Foundation.h>
 
@@ -61,12 +61,16 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 /// request paramSource
 @property (nonatomic, weak, nullable) id<MKRequestParamSource> paramSource;
 
+
 /// append self to request queue
 - (void)start;
+- (void)startWithParams:(id)params;
 
 /// remove self from request queue
 - (void)stop;
 
+//// 分页
+//- (BOOL)paging;
 
 /// 请求的URL
 - (NSString *)requestUrl;
@@ -89,6 +93,11 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 /// 是否使用cdn的host地址
 - (BOOL)useCDN;
 
+//####################### 给子类调用,用于计算page #######################
+/* 子类重写必须写 super 否则 isLoading 状态不会更改*/
+- (void)beforePerformRequestState;
+/// success: 判断成功还是失败
+- (void)afterPerformResponseState:(BOOL)success;
 @end
 
 NS_ASSUME_NONNULL_END

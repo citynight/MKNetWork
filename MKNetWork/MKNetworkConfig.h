@@ -4,7 +4,7 @@
 //
 //  Created by Mekor on 8/3/16.
 //  Copyright © 2016 李小争. All rights reserved.
-//
+//  配置文档,初始化基本的数据
 
 #import <Foundation/Foundation.h>
 #import "MKBaseRequest.h"

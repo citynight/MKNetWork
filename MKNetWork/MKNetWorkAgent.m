@@ -57,7 +57,11 @@
 
 
 #pragma mark 添加网络请求
-- (void)addRequest:(MKBaseRequest *)baseRequest {
+- (void)addRequest:(MKBaseRequest *)baseRequest{
+    [self addRequest:baseRequest WithParams:nil];
+}
+
+-(void)addRequest:(MKBaseRequest *)baseRequest WithParams:(nullable id)params {
     NSLog(@"\n==================================\n\nRequest Start: \n\n "
           @"%@\n\n==================================",
           [baseRequest requestUrl]);
@@ -74,7 +78,10 @@
     
     MKRequestMethod method = [baseRequest requestMethod];
     NSString *url = [self buildRequestUrl:baseRequest];
-    id param = [baseRequest.paramSource paramsForRequest:baseRequest];
+    
+    if (params == nil) {
+        params = [baseRequest.paramSource paramsForRequest:baseRequest];
+    }
     
     AFHTTPRequestSerializer *requestSerializer = nil;
     if (baseRequest.requestSerializerType == MKRequestSerializerTypeHTTP) {
@@ -88,52 +95,56 @@
     NSURLRequest *request = nil;
     switch (method) {
         case MKRequestMethodGet:
-            request = [self generateRequestWithUrlString:url Params:param methodName:@"GET" serializer:requestSerializer];
+            request = [self generateRequestWithUrlString:url Params:params methodName:@"GET" serializer:requestSerializer];
             break;
         case MKRequestMethodPost:
-            request = [self generateRequestWithUrlString:url Params:param methodName:@"POST" serializer:requestSerializer];
+            request = [self generateRequestWithUrlString:url Params:params methodName:@"POST" serializer:requestSerializer];
             break;
         case MKRequestMethodHead:
-            request = [self generateRequestWithUrlString:url Params:param methodName:@"HEAD" serializer:requestSerializer];
+            request = [self generateRequestWithUrlString:url Params:params methodName:@"HEAD" serializer:requestSerializer];
             break;
         case MKRequestMethodPut:
-            request = [self generateRequestWithUrlString:url Params:param methodName:@"PUT" serializer:requestSerializer];
+            request = [self generateRequestWithUrlString:url Params:params methodName:@"PUT" serializer:requestSerializer];
             break;
         case MKRequestMethodDelete:
-            request = [self generateRequestWithUrlString:url Params:param methodName:@"DELETE" serializer:requestSerializer];
+            request = [self generateRequestWithUrlString:url Params:params methodName:@"DELETE" serializer:requestSerializer];
             break;
         case MKRequestMethodPatch:
-            request = [self generateRequestWithUrlString:url Params:param methodName:@"PATCH" serializer:requestSerializer];
+            request = [self generateRequestWithUrlString:url Params:params methodName:@"PATCH" serializer:requestSerializer];
             break;
             
         default:
-            request = [self generateRequestWithUrlString:url Params:param methodName:@"POST" serializer:requestSerializer];
+            request = [self generateRequestWithUrlString:url Params:params methodName:@"POST" serializer:requestSerializer];
             break;
     }
+    
+    [baseRequest beforePerformRequestState];
     // 跑到这里的block的时候，就已经是主线程了。
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [_manager dataTaskWithRequest:request
                            completionHandler:^(NSURLResponse *_Nonnull response,
                                                id _Nullable responseObject,
                                                NSError *_Nullable error)
-    {
-        NSNumber *requestID = @([dataTask taskIdentifier]);
-        baseRequest.requestID = requestID;
-        baseRequest.responseObject = responseObject;
-        
-        [_requestsRecord removeObjectForKey:requestID];
-        
-        if (error) {
-            if(baseRequest.delegate != nil){
-                [baseRequest.delegate requestFailed:baseRequest];
-            }
-        } else {
-            // 检查http response是否成立。
-            if(baseRequest.delegate != nil){
-                [baseRequest.delegate requestFinished:baseRequest];
-            }
-        }
-    }];
+                {
+                NSNumber *requestID = @([dataTask taskIdentifier]);
+                baseRequest.requestID = requestID;
+                baseRequest.responseObject = responseObject;
+                
+                [_requestsRecord removeObjectForKey:requestID];
+                
+                if (error) {
+                    [baseRequest afterPerformResponseState:NO];
+                    if(baseRequest.delegate != nil){
+                        [baseRequest.delegate requestFailed:baseRequest];
+                    }
+                } else {
+                    [baseRequest afterPerformResponseState:YES];
+                    // 检查http response是否成立。
+                    if(baseRequest.delegate != nil){
+                        [baseRequest.delegate requestFinished:baseRequest];
+                    }
+                }
+                }];
     // 添加到请求列表
     NSNumber *requestId = @([dataTask taskIdentifier]);
     NSLog(@"获取到requestId");

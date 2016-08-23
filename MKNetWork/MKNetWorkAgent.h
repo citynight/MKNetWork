@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (MKNetWorkAgent *)sharedInstance;
 /// 添加网络请求
 - (void)addRequest:(MKBaseRequest *)baseRequest;
+/// 添加网络请求
+- (void)addRequest:(MKBaseRequest *)baseRequest WithParams:(nullable id)params;
 /// 取消网络请求
 - (void)cancelRequest:(NSNumber *)requestID;
 
