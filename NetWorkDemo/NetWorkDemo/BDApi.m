@@ -18,11 +18,6 @@ NSInteger page = 1;
     [self startWithParams:parms];
 }
 
-// 允许分页
--(BOOL)paging {
-    return YES;
-}
-
 -(NSString *)requestUrl {
     return @"geocode/regeo";
 }

@@ -69,9 +69,6 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 /// remove self from request queue
 - (void)stop;
 
-//// 分页
-//- (BOOL)paging;
-
 /// 请求的URL
 - (NSString *)requestUrl;
 
