@@ -83,6 +83,11 @@
         params = [baseRequest.paramSource paramsForRequest:baseRequest];
     }
     
+    // ############ 拼接完整链接 start #############
+    
+    // ############ 拼接完整链接 end #############
+    
+    
     AFHTTPRequestSerializer *requestSerializer = nil;
     if (baseRequest.requestSerializerType == MKRequestSerializerTypeHTTP) {
         requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -121,6 +126,9 @@
     [baseRequest beforePerformRequestState];
     // 跑到这里的block的时候，就已经是主线程了。
     __block NSURLSessionDataTask *dataTask = nil;
+    
+    NSLog(@"\n\n############ 完整请求 #################\n%@\n\n",request.URL);
+    
     dataTask = [_manager dataTaskWithRequest:request
                            completionHandler:^(NSURLResponse *_Nonnull response,
                                                id _Nullable responseObject,
