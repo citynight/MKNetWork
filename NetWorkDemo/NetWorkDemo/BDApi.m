@@ -16,7 +16,7 @@ NSInteger page = 1;
 {
     self = [super init];
     if (self) {
-        self.pageEnable = self;
+        self.requestPerform = self;
     }
     return self;
 }

@@ -42,10 +42,11 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 - (NSDictionary *)paramsForRequest:(MKBaseRequest *)request;
 @end
 
-@protocol MKRequestPageEnable <NSObject>
-@required
+@protocol MKRequestPerform <NSObject>
+
 
 - (void)beforePerformRequestState;
+@required
 /// success: 判断成功还是失败
 - (void)afterPerformResponseState:(BOOL)success;
 @end
@@ -70,7 +71,7 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 /// request paramSource
 @property (nonatomic, weak, nullable) id<MKRequestParamSource> paramSource;
 /// request pageEnable
-@property (nonatomic, weak, nullable) id<MKRequestPageEnable> pageEnable;
+@property (nonatomic, weak, nullable) id<MKRequestPerform> requestPerform;
 
 /// append self to request queue
 - (void)start;
@@ -100,11 +101,6 @@ typedef NS_ENUM(NSInteger , MKRequestSerializerType) {
 /// 是否使用cdn的host地址
 - (BOOL)useCDN;
 
-//####################### 给子类调用,用于计算page #######################
-///* 子类重写必须写 super 否则 isLoading 状态不会更改*/
-//- (void)beforePerformRequestState;
-///// success: 判断成功还是失败
-//- (void)afterPerformResponseState:(BOOL)success;
 @end
 
 NS_ASSUME_NONNULL_END
