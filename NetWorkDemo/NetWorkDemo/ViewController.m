@@ -19,8 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-
 }
 - (IBAction)loginClick {
     self.api = [[BDApi alloc]init];

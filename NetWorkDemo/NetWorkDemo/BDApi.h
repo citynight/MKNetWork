@@ -8,6 +8,6 @@
 
 #import "MKBaseRequest.h"
 
-@interface BDApi : MKBaseRequest
+@interface BDApi : MKBaseRequest<MKRequestPageEnable>
 
 @end

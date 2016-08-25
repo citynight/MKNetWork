@@ -16,6 +16,7 @@
 @implementation MKBaseRequest
 
 - (void)start {
+    self.isLoading = NO;
     [[MKNetWorkAgent sharedInstance]addRequest:self];
 }
 -(void)startWithParams:(id)params {
@@ -55,14 +56,6 @@
 
 -(void)setResponseObject:(id)responseObject {
     _responseObject = responseObject;
-    self.isLoading = NO;
-}
-
-//####################### 给子类调用,用于计算page #######################
-- (void)beforePerformRequestState{
-    self.isLoading = YES;
-}
-- (void)afterPerformResponseState:(BOOL)success{
     self.isLoading = NO;
 }
 @end

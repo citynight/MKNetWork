@@ -126,7 +126,9 @@
             break;
     }
     
-    [baseRequest beforePerformRequestState];
+    if ([baseRequest.pageEnable respondsToSelector:@selector(beforePerformRequestState)]) {
+        [baseRequest.pageEnable beforePerformRequestState];
+    }
     // 跑到这里的block的时候，就已经是主线程了。
     __block NSURLSessionDataTask *dataTask = nil;
     
@@ -144,12 +146,16 @@
                 [_requestsRecord removeObjectForKey:requestID];
                 
                 if (error) {
-                    [baseRequest afterPerformResponseState:NO];
+                    if ([baseRequest.pageEnable respondsToSelector:@selector(afterPerformResponseState:)]) {
+                        [baseRequest.pageEnable afterPerformResponseState:NO];
+                    }
                     if(baseRequest.delegate != nil){
                         [baseRequest.delegate requestFailed:baseRequest];
                     }
                 } else {
-                    [baseRequest afterPerformResponseState:YES];
+                    if ([baseRequest.pageEnable respondsToSelector:@selector(afterPerformResponseState:)]) {
+                        [baseRequest.pageEnable afterPerformResponseState:YES];
+                    }
                     // 检查http response是否成立。
                     if(baseRequest.delegate != nil){
                         [baseRequest.delegate requestFinished:baseRequest];
