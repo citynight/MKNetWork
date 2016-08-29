@@ -140,11 +140,9 @@
                                                NSError *_Nullable error)
                 {
                 NSNumber *requestID = @([dataTask taskIdentifier]);
-                baseRequest.requestID = requestID;
-                baseRequest.responseObject = responseObject;
-                
                 [_requestsRecord removeObjectForKey:requestID];
-                
+                baseRequest.responseObject = responseObject;
+
                 if (error) {
                     if ([baseRequest.requestPerform respondsToSelector:@selector(afterPerformResponseState:)]) {
                         [baseRequest.requestPerform afterPerformResponseState:NO];
@@ -166,6 +164,7 @@
     NSNumber *requestId = @([dataTask taskIdentifier]);
     NSLog(@"获取到requestId");
     _requestsRecord[requestId] = dataTask;
+    baseRequest.requestID = requestId;
     [dataTask resume];
 }
 
