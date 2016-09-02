@@ -56,9 +56,6 @@
 }
 
 
-#define GenerateRequest(MKMethod) [self generateRequestWithUrlString:url Params:params methodName:MKMethod serializer:requestSerializer]
-
-
 #pragma mark 添加网络请求
 - (void)addRequest:(MKBaseRequest *)baseRequest{
     [self addRequest:baseRequest WithParams:nil];
@@ -102,6 +99,11 @@
     
     NSURLRequest *request = nil;
     switch (method) {
+            
+            
+#define GenerateRequest(MKMethod)\
+            [self generateRequestWithUrlString:url Params:params methodName:MKMethod serializer:requestSerializer]
+            
         case MKRequestMethodGet:
             request = GenerateRequest(@"GET");
             break;
@@ -124,6 +126,9 @@
         default:
             request = GenerateRequest(@"POST");;
             break;
+            
+#undef GenerateRequest//(MKMethod)
+            
     }
     
     if ([baseRequest.requestPerform respondsToSelector:@selector(beforePerformRequestState)]) {
